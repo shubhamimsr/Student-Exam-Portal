@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student-Exam-INFINITY Tech </title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="/admin/js/script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <style>
+        .card {
+            border-radius: 20px;
+            background-color: #048C8C;
+        }
+
+        .info {
+            border-radius: 12px !important;
+            background-color: white !important;
+        }
+
+        .card-header {
+            color: white;
+        }
+
+        li {
+            color: white;
+        }
+
+        .backbtn {
+            text-decoration: none;
+            color: red;
+            animation: blink 2s linear infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0;
+            }
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            var sname = getCookie("student_name");
+            $("#dropdownMenuButton").append(sname);
+            if (getCookie('student_id') == null) {
+                window.location.href = "../studentlogin.html"
+            }
+            Viewassessment();
+            $("#logout").click(function () {
+                var confirmLogout = window.confirm('Are you sure you want to log out?');
+                if (confirmLogout) {
+                    document.cookie = 'student_id' + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    window.location.href = "../studentlogin.html";
+                }
+            });
+        })
+
+        function getCookie(student_name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + student_name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+
+        function Viewassessment() {
+            var exam_id = getCookie('exam_id');
+            $.ajax({
+                url: 'http://localhost:9090/api/exam/' + exam_id,
+                method: 'get',
+                content: 'application/json',
+                success: function (resp) {
+                    console.log(resp);
+                    $("#edate").append("<b> &nbsp; &nbsp;" + resp.exam_date + "</b>");
+                    $("#stime").append("<b> &nbsp; &nbsp;" + resp.start_time + "</b>");
+                    $("#etime").append("<b> &nbsp; &nbsp;" + resp.end_time + "</b>");
+                    $("#total").append("<b> &nbsp; &nbsp;" + resp.total + "</b>");
+                    $("#notattempted").append("<b> &nbsp; &nbsp;" + resp.notattempted + "</b>");
+                    $("#correct").append("<b> &nbsp; &nbsp;" + resp.correct + "</b>");
+                    $("#wrong").append("<b> &nbsp; &nbsp;" + resp.wrong + "</b>");
+                    // $("#econtent").append("<b> &nbsp; &nbsp;" + resp.examquestions.contentquestion.content.content_name + "</b>");
+
+                    if (resp.examquestions && resp.examquestions.length > 0) {
+                        var firstQuestion = resp.examquestions[0];
+                        var contentName = firstQuestion.contentquestion.content.content_name;
+
+                        $("#econtent").append("<b> &nbsp; &nbsp;" + contentName + "</b>");
+
+                    }
+
+                    if (resp.examquestions && resp.examquestions.length > 0) {
+                        $.each(resp.examquestions, function (i, d) {
+                            var data = "<div class='card info  mt-2' style='border:1px solid black'  ><div class='card-header d-flex p-3' style='color:black'><p class='card-title '>" + (i + 1) + ") &nbsp; <pre style='font-size:15px;'>" + d.contentquestion.question + "</pre></p></div><div class='card-body'><ul class='list-group' >";
+                            var options = "<li class='list-group-item' style='border:none;'> <pre style='font-size:15px'>1)&nbsp;" + d.contentquestion.option1 + "</pre></li> ";
+                            options += "<li class='list-group-item' style='border:none;'> <pre style='font-size:15px'>2)&nbsp;" + d.contentquestion.option2 + "</pre></li>";
+                            options += "<li class='list-group-item' style='border:none;'><pre style='font-size:15px'>3)&nbsp;" + d.contentquestion.option3 + "</pre></li>";
+                            options += "<li class='list-group-item' style='border:none;'> <pre style='font-size:15px'>4)&nbsp;" + d.contentquestion.option4 + "</pre></li>";
+
+                            data += options + "</ol></div></div>";
+                            var rs;
+                            if (d.contentquestion.correct_option_number == d.submitted_answer_option) {
+                                rs = "<span style='color: green;'><b>Correct</b></span>";
+                            }
+                            else {
+                                rs = "<span style='color: red;'><b>Wrong</b></span>";
+                            }
+                            var result = "<div class='card-footer m-3 d-flex' style='border:1px solid black;background-color:white;border-radius:10px'>Correct Answer:&nbsp;" + d.contentquestion.correct_option_number + "<p class='m-auto'>" + "Submitted Answer:&nbsp;" + d.submitted_answer_option + "</p class='ms-auto'>" + "<p>Result:&nbsp;" + rs + "</p>" + "</div>";
+                            data += result;
+
+
+                            console.log(d);
+                            $("#dv").append(data);
+
+                            // $("#dv").append(data);
+                        });
+
+                    }
+                }
+            })
+
+
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <!-- top navigation bar -->
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <form class="m-auto" style="width:80%;">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+                        &nbsp;
+                        <button class="btn btn-primary" type="submit">
+
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <button class="navbar-toggler mb-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                    aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+                </button>
+                <!-- </div> -->
+            </div>
+        </nav>
+
+        <div class="offcanvas offcanvas-start sidebar-nav  pt-1" style="background: #048C8C;" tabindex="-1"
+            id="sidebar">
+            <div class="offcanvas-body ">
+                <nav class="navbar-dark">
+                    <div class="pb-1 text-center">
+                        <h3 class="text-light" style="letter-spacing: 10px;"><i>INFINITY </i></h3>
+                        <p class="text-light">Tech</p>
+                        <hr class="dropdown-divider bg-light" />
+                    </div>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-link   text-center">
+                            <!-- <img class="rounded-circle" src=" /images/logo.png" alt="" width="100"> -->
+                            <i class="bi bi-person-circle" style="font-size: 60px;"></i>
+                            <div class="dropdown mt-2 d-flex ">
+                                <p class="m-auto pb-4 btn btn-outline-light dropdown-toggle" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false" style="height: 30px;">
+                                </p>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item nav-link " id="logout" href=""
+                                        style="text-decoration: none;color: red;">
+                                        <i class="bi bi-box-arrow-right "
+                                            style="font-size:15px;margin-left: 40px;">Logout</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <hr class="text-light">
+                        <li>
+                            <a href="profile.html" class="nav-link px-3 py-3 ">
+                                <span class="me-2"><i class="bi bi-person"></i></span>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="exam.html" class="nav-link px-3  py-3 active">
+                                <span class="me-2"><i class="bi bi-journal-bookmark-fill"></i></span>
+                                <span>Exam</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="courses.html" class="nav-link px-3 py-3 ">
+                                <span class="me-2"><i class="bi bi-textarea-resize"></i></span>
+                                <span>Courses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="feedback.html" class="nav-link px-3 py-3 ">
+                                <span class="me-2"><i class="bi bi-textarea-resize"></i></span>
+                                <span>Feedback</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="text-light">
+                        </li>
+                        <li style="margin-top:5%;">
+                            <a class="nav-link  active"> <i>Copyright @ INFINITY Tech</i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- offcanvas -->
+
+        <main class="mt-2 pt-1 main ">
+            <div class=" container-fluid">
+                <div class="row">
+                    <div class="header d-flex">
+                        <div class="">
+                            <h3>Assessment Detail</h3>
+                        </div>
+                        <div class="ms-auto ">
+                            <a href="./exam.html" class="backbtn">Go Back</a>
+                        </div>
+                    </div>
+                    <div class="card info p-3">
+                        <table class="table table-borderless">
+                            <tbody class="pt-3 ">
+                                <tr class="">
+                                    <td id="edate">Exam Date:</td>
+                                    <td id="econtent">Exam For:</td>
+                                </tr>
+                                <tr class="">
+                                    <td id="stime">Start Time: </td>
+                                    <td id="etime"> End Time:</td>
+                                </tr>
+                                <tr class="">
+                                    <td id="total">Total Questions:</td>
+                                    <td id="notattempted">Not Atempted Question:</td>
+                                </tr>
+                                <tr class="">
+                                    <td id="correct">Correct Questions:</td>
+                                    <td id="wrong">Wrong Questions:</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 " id="dv"></div>
+                    <!-- <div id="correctanswer"></div>
+                    <div id="submittedanswer"></div>
+                    <div id="result"></div> -->
+
+                </div>
+            </div>
+    </div>
+    </main>
+
+    </div>
+
+
+
+
+</body>
+
+</html>

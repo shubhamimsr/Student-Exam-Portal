@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Coda&display=swap');
+
+body,
+button {
+  background-color: #E4ECFC;
+  font-family: coda;
+}
+
+:root {
+  --offcanvas-width: 230px;
+  --topNavbarHeight: 71px;
+}
+
+.main {
+  padding-top: 10px;
+}
+
+.navbar {
+  height: 65px;
+  background-color: #84c5fa;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-collapse {
+  background-color: white;
+  color: black;
+
+}
+
+.navbar .title {
+  margin-left: 80px;
+}
+
+.sidebar-nav {
+  width: var(--offcanvas-width);
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-link .right-icon {
+  display: inline-flex;
+}
+
+.sidebar-link[aria-expanded="true"] .right-icon {
+  transform: rotate(180deg);
+}
+
+#sidebar a {
+  transition: all 1s;
+}
+
+#sidebar a:hover {
+  background-color: yellowgreen;
+}
+
+.main .title {
+  background-color: #64c5b1;
+  padding: 30px;
+}
+
+
+.profile {
+  list-style-type: none;
+}
+
+.profile li {
+  display: flex;
+  gap: 35%;
+  height: 55px;
+}
+
+#scode {
+  margin-left: 15px;
+}
+
+#semail,
+#sname {
+  margin-left: 10px;
+}
+
+#smobile {
+  margin-left: 2px;
+}
+
+#sgender {
+  margin-left: 57px;
+}
+
+#saddress {
+  margin-left: 54px;
+}
+
+#spassword {
+  margin-left: 40px;
+}
+
+@media (min-width: 992px) {
+  body {
+    overflow: auto !important;
+  }
+
+  .navbar {
+    margin-left: 230px;
+  }
+
+  .main {
+    margin-left: 230px;
+  }
+
+  /* this is to remove the backdrop */
+  .offcanvas-backdrop::before {
+    display: none;
+  }
+
+  .sidebar-nav {
+    -webkit-transform: none;
+    transform: none;
+    visibility: visible !important;
+    height: 100%;
+    /* top: var(--topNavbarHeight); */
+  }
+}
+
+
+@media (max-width: 670px) {
+  .exam select {
+    margin-top: 10px;
+  }
+
+  .exam .btn {
+    margin-top: 10px;
+  }
+
+
+
+}

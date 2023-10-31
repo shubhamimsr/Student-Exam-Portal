@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+  <title>Admin-Dashboard-INFINITY Tech </title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/images/logo.png">
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="/admin/js/script.js"></script>
+  <!-- <script src="/"></script> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $("#logout").click(function () {
+        var confirmLogout = window.confirm('Are you sure you want to log out?');
+        if (confirmLogout) {
+          document.cookie = 'aun' + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          window.location.href = "../adminlogin.html";
+        }
+      });
+
+      if (getCookie('aun') == null) {
+        window.location.href = "../adminlogin.html"
+      }
+      function getCookie(aun) {
+        var value = ";" + document.cookie;
+        var parts = value.split(";" + aun + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+
+      var sname = getCookie("aun");
+      $("#uname").append(sname);
+    })
+
+
+
+
+
+  </script>
+</head>
+
+<body>
+  <!-- top navigation bar -->
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="container-fluid">
+
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
+          aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <!-- <div class="collapse navbar-collapse  px-3" id="topNavBar"> -->
+        <form class="d-flex mr-auto  mb-3 my-lg-0">
+          <div class="input-group">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-primary" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+
+
+        <div class="dropdown show mt-2  " style="margin-right: 100px;">
+          <p class="bi bi-person-circle pb-4  dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
+            aria-expanded="false" style="height:30px;font-size: 25px;cursor: pointer;">
+          </p>
+          <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="min-width: max-content;">
+            <h6 class="dropdown-item bi bi-person" id="uname"></h6>
+            <a class="dropdown-item " id="logout" style="text-decoration: none;color: red;cursor: pointer;">
+              <i class="bi bi-box-arrow-right ">Logout</i>
+            </a>
+          </div>
+        </div>
+        <!-- <p class="navbar-nav mb-3 mr-3 ">
+          <a href="" id="logout" style="text-decoration: none;color: red;">
+            Logout &nbsp;<i class="bi bi-box-arrow-right"></i></a>
+        </p> -->
+        <button class="navbar-toggler mb-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+          aria-controls="offcanvasExample">
+          <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+        </button>
+        <!-- </div> -->
+      </div>
+    </nav>
+    <!-- top navigation bar -->
+    <!-- offcanvas -->
+    <div class="offcanvas offcanvas-start sidebar-nav  pt-1" style="background: #040404;overflow-y: hidden;"
+      tabindex="-1" id="sidebar">
+      <div class="offcanvas-body ">
+        <nav class="navbar-dark">
+          <div class="pb-1 text-center">
+            <h3 class="text-light" style="letter-spacing: 10px;"><i>INFINITY </i></h3>
+            <p class="text-light">Tech</p>
+            <hr class="dropdown-divider bg-light" />
+          </div>
+
+          <ul class="navbar-nav">
+            <li>
+              <div class="text-muted small fw-bold text-uppercase px-3 mb-2">
+                Admin Section
+              </div>
+            </li>
+            <li>
+              <a href="dashboard.html" class="nav-link px-3 active">
+                <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="my-4">
+              <hr class="dropdown-divider bg-light" />
+            </li>
+            <li>
+              <div class="text-muted small fw-bold text-uppercase px-3 mb-2">
+                Student Section
+              </div>
+            </li>
+            <li>
+              <a href="student.html" class="nav-link px-3 active">
+                <span class="me-2"><i class="bi bi-person"></i></span>
+                <span>Student</span>
+              </a>
+            </li>
+            <li>
+              <a href="exam.html" class="nav-link px-3 active">
+                <span class="me-2"><i class="bi bi-tablet"></i></i></span>
+                <span>Exam</span>
+              </a>
+            </li>
+            <li class="my-4">
+              <hr class="dropdown-divider bg-light" />
+            </li>
+            <li>
+              <div class="text-muted small fw-bold text-uppercase px-3 mb-2">
+                Master Section
+              </div>
+            </li>
+            <li>
+              <a class="nav-link px-3  active" href="topic.html">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                <span>Topic</span>
+
+              </a>
+
+            </li>
+            <li>
+              <a href="content.html" class="nav-link px-3 active">
+                <i class="bi bi-patch-question  "></i>
+                <span>Content
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="contentquestion.html" class="nav-link px-3 active">
+                <i class="bi bi-patch-question active"></i>
+                <span>Content Question
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="dashboard.html" class="nav-link px-3 active">
+                <i class="bi bi-patch-question "></i>
+                <span>
+                  Interview Question
+                </span>
+              </a>
+            </li>
+            <li class="my-1">
+              <hr class="dropdown-divider bg-light" />
+            </li>
+            <li>
+              <p class="nav-link px-1 active"> <i>Copyright @ INFINITY Tech</i></p>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- offcanvas -->
+    <main class="mt-4 pt-5 main ">
+      <div>
+        <div class="title d-flex">
+          <i class="bi bi-" style="font-size:30px;"> </i>&nbsp;&nbsp;&nbsp;
+          <h4 style="color: #FCFC04 ;border-bottom:4px solid #fffdfd;  ;
+            width: fit-content;"><b>
+              Dashboard
+            </b>
+          </h4>
+          <img src="/images/logo.png" class="ms-auto" alt="" height="60px">
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-3">
+          <div class="card my-2" style="border-left: 6px solid #FA4519;border-bottom-left-radius: 80px;">
+            <div class="card-body ms-auto " style="text-align-last:right">
+              <p><b>Active Student</b></p><br>
+              <p>340</p>
+            </div>
+          </div>
+        </div>
+        <div class=" col-md-3">
+          <div class="card my-2" style="border-left: 6px solid #A48BFA;border-bottom-left-radius: 80px;">
+            <div class="card-body ms-auto " style="text-align-last:right">
+              <p><b>Total Exam</b></p><br>
+              <p>8</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card my-2" style="border-left: 6px solid #24B0E2;border-bottom-left-radius: 80px;">
+            <div class="card-body ms-auto " style="text-align-last:right">
+              <p><b>Courses Avaliable</b></p><br>
+              <p>10</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card my-2" style="border-left: 6px solid #9CBC04;border-bottom-left-radius: 80px;">
+            <div class="card-body ms-auto " style="text-align-last:right">
+              <p><b>Total Student</b></p><br>
+              <p>1000+</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="row mt-2">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-header d-flex">
+                <p>Course</p>
+                <div class=" ms-auto d-flex">
+                  <a href="" style="text-decoration: none; color:black">
+                    <p>This Week</p>
+                  </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="" style="text-decoration: none; color:black">
+                    <p>Last Week</p>
+                  </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="" style="text-decoration: none; color:black">
+                    <p>Last Month</p>
+                  </a> &nbsp;
+                </div>
+              </div>
+              <div class="card-footer">
+                <img src="/images/pie.png" class="m-auto" alt="" height="450px" width="650px">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-header d-flex">
+                <p>Total Exam</p>
+
+              </div>
+              <div class="card-footer">
+                <img src="/images/plot2.png" class="m-auto" alt="" height="350px" width="290px">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- div 1 end -->
+      <!-- div row 2 start -->
+      <div class="row mt-3 ">
+        <div class="col-md-3">
+          <div class="card my-2">
+            <div class="card-header">
+              <img src="/images/fb.png" alt="" style="width:100%;height: 100%;">
+            </div>
+            <div class="card-body d-flex">
+              <div class="m-auto">
+                <span>35K</span><br>
+                <span>Friends</span>
+              </div>
+              <div class="m-auto">
+                <span>116</span><br>
+                <span>Feed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+
+          <div class="card my-2">
+            <div class="card-header">
+              <img src="/images/twittwe.png" alt="" style="width:100%;height: 100px;">
+            </div>
+            <div class="card-body d-flex">
+              <div class="m-auto">
+                <span>535K</span><br>
+                <span>Follower</span>
+              </div>
+              <div class="m-auto">
+                <span>1000</span><br>
+                <span>Tweets</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card my-2">
+            <div class="card-header">
+              <img src="/images/ldin.png" alt="" style="width:100%;height: 100px;">
+            </div>
+            <div class="card-body d-flex">
+              <div class="m-auto">
+                <span>450+</span><br>
+                <span>Contact</span>
+              </div>
+              <div class="m-auto">
+                <span>364</span><br>
+                <span>Feed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card my-2">
+            <div class="card-header">
+              <img src="/images/gplus.png" alt="" style="width:100%;height: 100px;">
+            </div>
+            <div class="card-body d-flex">
+              <div class="m-auto">
+                <span>320</span><br>
+                <span>Follower</span>
+              </div>
+              <div class="m-auto">
+                <span>75</span><br>
+                <span>Circle</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+
+
+
+</body>
+
+</html>

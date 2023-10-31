@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Student Exam Portal</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Coda&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: code;
+        }
+
+        svg {
+            transition: 0.5s ease-in-out;
+        }
+
+        svg:hover {
+            color: #ff7200;
+        }
+
+        .contact {
+            display: block;
+            width: 80%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6)50%, rgba(0, 0, 0, 0.6)50%);
+            border-radius: 10px;
+            padding: 8px;
+
+        }
+
+        form h2 {
+            margin-top: 20px;
+            text-align: center;
+            color: #ff7200;
+            font-size: 22px;
+            background-color: #fff;
+            border-radius: 10px;
+            /* margin: 2px; */
+            padding: 6px;
+        }
+
+        form input,
+        textarea {
+            width: 90%;
+            padding-top: 3px;
+            background: transparent;
+            border-bottom: 1px solid #ff7200;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            color: #fff;
+            font-size: 15px;
+            letter-spacing: 1px;
+            margin-top: 30px;
+        }
+
+        form input:focus,
+        form textarea:focus {
+            outline: #ff7200;
+
+        }
+
+        ::placeholder {
+            color: #fff;
+        }
+
+        .sendbtn {
+            width: 240px;
+            height: 40px;
+            background: #ff7200;
+            border: none;
+            margin-top: 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #fff;
+            transition: 0.4s ease;
+        }
+    </style>
+
+</head>
+
+<body class="text-white" background="images/bg.jpg"
+    style="background-size: cover;background-position: center; background-attachment:fixed">
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:rgba(0, 0, 0, 0.8);">
+        <a class="navbar-brand" style="margin-left: 8%;" href="#">
+            <img src="images/logo.png" alt="logo" height="60">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon   my-toggler"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto" style="margin-right: 10%;">
+                <a class="nav-item nav-link" href="#">
+                    <h4 class="btn btn-outline-light btn-rounded">Home</h4><span class="sr-only">(current)</span>
+                </a>
+                <a class="nav-item nav-link " href="#aboutus">
+                    <h4 class="btn btn-outline-light btn-rounded ">About us</h4><span class="sr-only">(current)</span>
+                </a>
+                <a class="nav-item nav-link" href="#contactus">
+                    <h4 class="btn btn-outline-light btn-rounded ">Contact Us</h4><span class="sr-only">(current)</span>
+                </a>
+                <div class="dropdown mt-2">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Login
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                        <a class="dropdown-item bi bi-people" href="studentlogin.html">Student</a>
+
+                        <a class="dropdown-item bi bi-person-fill" href="adminlogin.html">Admin</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- main -->
+    <div class="container-fluid">
+        <div class="row main  d-flex align-items-center" style="margin-top:5%">
+            <div class="col-md-5 mt-5">
+                <marquee behavior="scroll" direction="left" height="200px    ">
+                    <h2 class="ml-5 " style="margin-top:30px;font-weight: 600;font-size:45px;color:#ff7200;">
+                        Welcome to INFINITY Tech
+                    </h2>
+                </marquee>
+            </div>
+            <div id="about" class="col-md-7 mt-3 ">
+
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row p-2" style="margin-left: 15%;">
+                        <marquee direction="up">
+                            <div class="col-md-10">
+                                <div class="section-header text-center">
+                                    <h1 style=" color: #ff7200;">Why INFINITY Tech?</h1>
+                                    <hr>
+                                </div>
+                                <!-- feature -->
+                                <div class="row ">
+                                    <div class="d-flex pb-2 ">
+                                        <div style="padding-right: 10px;">
+                                            <img src="/images/ol.png" class="d-flex" alt=""
+                                                style="height:60px;width: auto;">
+                                        </div>
+                                        <div class="feature-content" style="padding-left: 30px;">
+                                            <h3 style="color:#E6FF33; ">Online Courses:-</h3>
+                                            <p style="font-size:22px">Learn about emerging technologies by working on
+                                                Live Industry projects
+                                                from
+                                                our
+                                                partnered companies.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /feature -->
+                                <hr>
+                                <!-- feature -->
+                                <div class="row">
+                                    <div class="d-flex pb-2">
+                                        <div style="padding-right: 10px;">
+                                            <img src="/images/exp.png" class="d-flex" alt=""
+                                                style="height:60px;width: auto;">
+                                        </div>
+                                        <div class="feature-content" style="padding-left: 30px;">
+                                            <h3 style="color:#E6FF33">Expert Teacher:-</h3>
+                                            <p style="font-size:22px">Get mentored by Industry Experts with many years
+                                                of experience.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /feature -->
+                                <hr>
+                                <!-- feature -->
+                                <div class="row">
+                                    <div class="d-flex pb-2">
+                                        <div>
+                                            <img src="/images/jb.png" class="d-flex" alt=""
+                                                style="height:60px;width: auto;">
+                                        </div>
+                                        <div class="feature-content" style="padding-left: 30px;">
+                                            <h3 style="color:#E6FF33">Intership And Job Opportunity:-</h3>
+                                            <p style="font-size:22px">Apply For Job and Intership</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /feature -->
+                                <hr>
+                            </div>
+                        </marquee>
+                    </div>
+                    <!-- row -->
+
+                </div>
+                <!-- container -->
+            </div>
+
+            <!-- About -->
+        </div>
+    </div>
+
+    <div class="container-fluid" style="min-height:350px;" id="aboutus">
+        <h2 class="text-center " style="margin:auto;margin-top:20px;color:#ff7200"><b>About US</b></h2>
+        <hr style="border:2px solid  ">
+        <br>
+        <div class="row ">
+            <div class="col-md-10" style="margin: auto;font-size:20px;text-indent:10%;">
+                <p> INFINITY Tech is a leading Skills and Talent Development Corporation that is building a manpower
+                    pool
+                    for
+                    global industry
+                    requirements. INFINITY Tech is a global leader in Skills and Talent Development, offers
+                    multi-disciplinary
+                    learning management
+                    and training delivery solutions to corporations, institutions, and individuals on various
+                    technologies. INFINITY Tech has three
+                    main lines of business – Corporate Training, Skills and Careers, and School/College
+                    Learning.
+                </p>
+                <p>
+
+                    INFINITY Tech has been founded by a group of highly qualified professionals with an excelled
+                    expertise
+                    onto
+                    varied technological
+                    domains as a center for IT education & training with a vision to make candidates ready for
+                    IT
+                    industry from day one. We
+                    believe in in-depth perfection in whatever we do and we strive to bring it alive through
+                    INFINITY Tech.
+                    INFINITY Tech’s training proved
+                    that every candidate from fresher to experience got trained on latest IT requirements and
+                    became
+                    first choice for
+                    industries.
+                </p>
+                <p>
+
+                    Our highly dedicative staff comes together as a unified team and thrive day and night to achieve
+                    the high standards that
+                    we have set for ourselves towards your progress. INFINITY Tech understand and believe that just as
+                    an
+                    organization needs the
+                    right talent to drive its business objectives, people need the right environment to grow and
+                    achieve their career goals.
+                    The moment you step into INFINITY Tech, you would be greeted with the feeling of being at the right
+                    place. Along with that, INFINITY Tech
+                    affords you with a sense of successful and rewarding career that would be driven by boundless
+                    growth opportunities and
+                    exposure to cutting-edge technologies and learning possibilities. Each of these elements goes
+                    much deeper than what it
+                    conveys.
+                </p>
+                <p>
+
+                    At INFINITY Tech, the focus is more on practical exposure through "Employment” and making every
+                    individual well versed with the
+                    industry standards. This helps in reducing the time, effort and costs for an organization that
+                    looks forward to hire
+                    these skilled resources on their training.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Contact US -->
+
+    <div class="container-fluid contact mt-5" id="contactus">
+        <div>
+            <h2 class="text-center " style="margin:auto;margin-top:20px;color:#ff7200"><b>Contact US</b></h2>
+            <hr style="border:2px solid ">
+        </div>
+        <div class="row  mb-5">
+            <div class="col-md-6 text-center ">
+                <div>
+                    <h2 class="mt-4">Connect with Us</h2>
+                </div>
+                <br>
+                <div class="icon mt-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-twitter" viewBox="0 0 16 16">
+                        <path
+                            d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                    </svg> &nbsp;&nbsp;&nbsp;|
+                    &nbsp;&nbsp;&nbsp;
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-instagram" viewBox="0 0 16 16">
+                        <path
+                            d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                    </svg>&nbsp;&nbsp;&nbsp;|
+                    &nbsp;&nbsp;&nbsp;
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-facebook" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                    </svg>&nbsp;&nbsp;&nbsp;|
+                    &nbsp;&nbsp;&nbsp;
+
+                    <a href="https://wa.me/8668853521/?text=Want to join your class" target="_blank"
+                        style="text-decoration:none; color: white;"> <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                            height="40" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                            <path
+                                d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 m-auto  ">
+                <form action="">
+                    <h2>Message Here</h2>
+                    <div class="md-form mb-0 pb-5">
+                        <input type="text" id="email" name="email" placeholder="Enter your Email">
+                    </div>
+
+                    <div class="md-form mb-0">
+                        <textarea type="text" id="subject" name="subject" style="resize: none;" rows="5" cols="5"
+                            placeholder="Your Message"></textarea>
+
+                    </div>
+                    <div>
+                        <input type="button" name="" class="sendbtn" value="Send">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="container-fluid text-center text-white mt-4" style="background-color:rgba(0, 0, 0, 0.8)">
+        <!-- Grid container -->
+        <div class="row">
+            <div class="col-md-8 p-2 pb-0">
+                <h3 style="color:#ff7200">Our Branches</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <hr style="border:1px solid white;">
+                        <h4>Hadapsar</h4>
+                        <p>Office #2, 1st floor, manisha blitz , hadapsar, near shankar math, pune, maharashtra
+                            411028</p>
+                    </div>
+                    <div class="col-md-4">
+                        <hr style="border:1px solid white;">
+                        <h4>VimanNagar</h4>
+                        <p>Office #3A,1st floor, Above MRF tyre showroom,pune nagar road vimanNagar corner, near
+                            pheonix mall, kargil vijay nagar,
+                            wadgaon sheri, pune, maharashtra 411014</p>
+                    </div>
+                    <div class="col-md-4">
+                        <hr style="border:1px solid white;">
+                        <h4>Baramati</h4>
+                        <p>Bhori complex Patas road Below footwear museum, near morya graphics, Baramati,
+                            Maharashtra 413102</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4 p-2 pb-0">
+                <h3 style="color:#ff7200">Working Hour</h3>
+                <section class="">
+                    <hr style="border:1px solid white;" class="mt-4">
+                    <p>Monday 6 AM - 10 PM <br>
+                        Tuesday 6 AM - 10 PM<br>
+                        Wednesday 6 AM - 10 PM<br>
+                        Thursday 6 AM - 10 PM<br>
+                        Friday 6 AM - 10 PM<br>
+                        Saturday 6 AM - 10PM<br>
+                        Sunday 8 AM - 4 PM
+                    </p>
+                </section>
+            </div>
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright:
+            <a class="text-white" href="https://INFINITY Techinstitute.com/">INFINITY Tech Institute</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+
+
+</body>
+
+</html>

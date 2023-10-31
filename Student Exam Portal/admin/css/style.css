@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Coda&display=swap');
+
+body,
+button {
+  background-color: papayawhip;
+  font-family: coda;
+}
+
+:root {
+  --offcanvas-width: 230px;
+  --topNavbarHeight: 71px;
+}
+
+.main {
+  padding-top: 10px;
+}
+
+.navbar {
+
+  height: 65px;
+  background-color: white;
+}
+
+.navbar-collapse {
+
+  background-color: white;
+  color: black;
+
+}
+
+.navbar .title {
+  margin-left: 80px;
+}
+
+.sidebar-nav {
+  width: var(--offcanvas-width);
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-link .right-icon {
+  display: inline-flex;
+}
+
+.sidebar-link[aria-expanded="true"] .right-icon {
+  transform: rotate(180deg);
+}
+
+#sidebar a {
+  transition: ease-out 2s;
+}
+
+#sidebar a:hover {
+  background-color: yellowgreen;
+}
+
+.main .title {
+  background-color: #64c5b1;
+  padding: 30px;
+}
+
+#calendar {
+  max-width: 1100px;
+  margin: 40px auto;
+}
+
+
+
+
+@media (min-width: 992px) {
+  body {
+    overflow: auto !important;
+  }
+
+  .navbar {
+    margin-left: 230px;
+
+  }
+
+  .main {
+    margin-left: 230px;
+  }
+
+  /* this is to remove the backdrop */
+  .offcanvas-backdrop::before {
+    display: none;
+  }
+
+  .sidebar-nav {
+    -webkit-transform: none;
+    transform: none;
+    visibility: visible !important;
+    height: 100%;
+    /* top: var(--topNavbarHeight); */
+  }
+}

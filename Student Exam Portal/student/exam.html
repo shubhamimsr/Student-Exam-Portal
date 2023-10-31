@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student-Exam-INFINITY Tech </title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="/admin/js/script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <style>
+        .card {
+            border-radius: 20px;
+            background-color: #048C8C;
+        }
+
+        .card-header {
+            color: white;
+        }
+
+        li {
+            color: white;
+        }
+
+        .examnav {
+            background-color: #84c5fa;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            GetExamDetails();
+            Gettopic();
+            if (getCookie('student_id') == null) {
+                window.location.href = "../studentlogin.html"
+            }
+            $("#logout").click(function () {
+                var confirmLogout = window.confirm('Are you sure you want to log out?');
+                if (confirmLogout) {
+                    document.cookie = 'student_id' + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    window.location.href = "../studentlogin.html";
+                }
+            });
+            var sname = getCookie("student_name");
+            $("#dropdownMenuButton").append(sname);
+
+            $("#topicdata").change(function () {
+                GetContent();
+
+            })
+
+
+            $("#examlogin").click(function () {
+                var Topic = $("#topicdata").val();
+                var Content = $("#contentdata").val();
+                if (Topic == null && Content == null) {
+                    alert("Select Topic and Content");
+                }
+                else if (Topic !== null && Content == null) {
+                    alert("Select Content");
+                }
+
+                else {
+                    var confirmLogin = window.confirm('Are you sure you want to Start Exam');
+                    if (confirmLogin) {
+                        // window.open("./studentassessment.html", "_blank");
+                        window.location.href = "./studentassessment.html"
+                        var selectedContentId = $("#contentdata").val();
+                        document.cookie = "content_id=" + selectedContentId + "; path=/";
+                    }
+                }
+            })
+
+
+        });
+
+        function getCookie(student_id) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + student_id + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+        function getCookie(student_name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + student_name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+
+        function Gettopic() {
+            $.ajax({
+                url: 'http://localhost:9090/api/topic',
+                method: 'get',
+                content: 'application/json',
+                success: function (resp) {
+                    $.each(resp, function (i, d) {
+                        $("#topicdata").append("<option value=" + d.topic_id + ">" + d.topic_name + "</option>")
+                    })
+
+                }
+            })
+        }
+
+        function GetContent() {
+            // $("#contentdata").empty();
+            var topic_id = $("#topicdata").val();
+            $.ajax({
+                url: 'http://localhost:9090/api/topic/' + topic_id,
+                method: 'get',
+                content: 'application/json',
+                success: function (resp) {
+                    console.log(resp);
+                    $.each(resp.contents, function (i, d) {
+                        $("#contentdata").append("<option value=" + d.content_id + ">" + d.content_name + "</option>")
+
+                    })
+
+                }
+            })
+        }
+
+        function GetExamDetails() {
+            var student_id = getCookie("student_id");
+            $.ajax({
+                url: 'http://localhost:9090/api/studentdetail/' + student_id,
+                method: 'get',
+                content: 'application/json',
+                success: function (resp) {
+                    console.log(resp);
+                    $.each(resp.examdetails, function (i, d) {
+                        $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.exam_date + "</td><td>" + 0 + "</td><td>" + d.start_time + "</td><td>" + d.end_time + "</td><td>" + d.total + "</td><td>" + d.correct + "</td><td>" + d.wrong + "</td><td><button class= 'btn btn-primary' onclick='Viewassessment(" + d.exam_id + ")' > View Assessment</button > </td></tr>")
+                    })
+
+                }
+            })
+        }
+
+        function Viewassessment(exam_id) {
+            // $.ajax({
+            //     url: 'http://localhost:9090/api/exam/' + exam_id,
+            //     method: 'get',
+            //     content: 'application/json',
+            //     success: function (resp) {
+            document.cookie = "exam_id" + "=" + exam_id, { path: '/' };
+            window.location.href = "./viewassessment.html";
+
+
+            // }
+            //     })
+
+
+        }
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <!-- top navigation bar -->
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top examnav">
+            <div class="container-fluid">
+                <form class="m-auto" style="width:80%;">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+                        &nbsp;
+                        <button class="btn btn-primary" type="submit">
+
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <button class="navbar-toggler mb-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                    aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+                </button>
+                <!-- </div> -->
+            </div>
+        </nav>
+
+        <div class="offcanvas offcanvas-start sidebar-nav  pt-1" style="background: #048C8C;" tabindex="-1"
+            id="sidebar">
+            <div class="offcanvas-body ">
+                <nav class="navbar-dark">
+                    <div class="pb-1 text-center">
+                        <h3 class="text-light" style="letter-spacing: 10px;"><i>INFINITY </i></h3>
+                        <p class="text-light">Tech</p>
+                        <hr class="dropdown-divider bg-light" />
+                    </div>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-link   text-center">
+                            <!-- <img class="rounded-circle" src=" /images/logo.png" alt="" width="100"> -->
+                            <i class="bi bi-person-circle" style="font-size: 60px;"></i>
+                            <div class="dropdown mt-2 d-flex ">
+                                <p class="m-auto pb-4 btn btn-outline-light dropdown-toggle" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false" style="height: 30px;">
+                                </p>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item nav-link " id="logout" href=""
+                                        style="text-decoration: none;color: red;">
+                                        <i class="bi bi-box-arrow-right "
+                                            style="font-size:15px;margin-left: 40px;">Logout</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <hr class="text-light">
+                        <li>
+                            <a href="profile.html" class="nav-link px-3 py-3 ">
+                                <span class="me-2"><i class="bi bi-person"></i></span>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="exam.html" class="nav-link px-3  py-3 active">
+                                <span class="me-2"><i class="bi bi-journal-bookmark-fill"></i></span>
+                                <span>Exam</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="courses.html" class="nav-link px-3 py-3 ">
+                                <span class="me-2"><i class="bi bi-textarea-resize"></i></span>
+                                <span>Courses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="feedback.html" class="nav-link px-3 py-3 ">
+                                <span class="me-2"><i class="bi bi-textarea-resize"></i></span>
+                                <span>Feedback</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="text-light">
+                        </li>
+                        <li style="margin-top:5%;">
+                            <a class="nav-link  active"> <i>Copyright @ INFINITY Tech</i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- offcanvas -->
+
+        <main class="mt-5 pt-5 main ">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <h6 class="text-center">Select Your Assessment</h6>
+                </div>
+                <div class="row exam">
+                    <div class="col-md-5">
+                        <select id="topicdata" style="width:100%;background-color:#048C8C; color:white;padding:5px;">
+                            <option disabled selected class="text-light">Select Topic</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5 ">
+                        <select id="contentdata" style="width:100%;background-color: #048C8C ;color:white;padding:5px;">
+                            <option disabled selected class="text-light">Select
+                                Content</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 ">
+                        <input type="button" class="btn btn-primary  " id="examlogin" value="Start Exam">
+                    </div>
+
+                </div>
+                <hr>
+
+                <!-- <div class="row">
+                    <p id="contentdata"></p>
+                </div> -->
+                <div class="row">
+                    <div>
+                        <h3 class="text-center">Test Record</h3>
+                    </div>
+                    <div class="row">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Sr No </th>
+                                    <th>Exam Date </th>
+                                    <th> Topic</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Total</th>
+                                    <th>Correct</th>
+                                    <th>Wrong</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbldata" class="text-dark">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+
+
+
+</body>
+
+</html>

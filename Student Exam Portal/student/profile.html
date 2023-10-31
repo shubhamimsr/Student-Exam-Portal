@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student-Profile-INFINITY Tech </title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="/admin/js/script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#logout").click(function () {
+                var confirmLogout = window.confirm('Are you sure you want to log out?');
+                if (confirmLogout) {
+                    document.cookie = 'student_id' + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    window.location.href = "../studentlogin.html";
+                }
+            });
+
+            if (getCookie('student_id') == null) {
+                window.location.href = "../studentlogin.html"
+            }
+            Getstudent();
+
+        });
+
+        function getCookie(student_id) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + student_id + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+
+        function Getstudent() {
+            var student_id = getCookie('student_id'); // Use a function to get the value of the 'student_id' cookie
+            $.ajax({
+                url: 'http://localhost:9090/api/student/' + student_id,
+                method: 'get',
+                contentType: 'application/json', // 'content' should be 'contentType'
+                success: function (resp) {
+                    $("#dropdownMenuButton").append(resp.student_name);
+                    $("#scode").append(resp.student_code);
+                    $("#sname").append(resp.student_name);
+                    $("#semail").append(resp.email_address);
+                    $("#smobile").append(resp.mobile_number);
+                    $("#saddress").append(resp.local_address);
+                    $("#sgender").append(resp.gender);
+                    $("#spassword").append(resp.password);
+                    document.cookie = "student_name" + "=" + resp.student_name
+                },
+                error: function (error) {
+                    console.log("Error fetching student data:", error);
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+
+</head>
+
+<body>
+    <!-- top navigation bar -->
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container-fluid">
+
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
+          aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+                <!-- <div class="collapse navbar-collapse  px-3" id="topNavBar"> -->
+                <form class="m-auto" style="width:80%;">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+                        &nbsp;
+                        <button class="btn btn-primary" type="submit">
+
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <button class="navbar-toggler mb-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                    aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+                </button>
+                <!-- </div> -->
+            </div>
+        </nav>
+        <!-- top navigation bar -->
+        <!-- offcanvas -->
+        <div class="offcanvas offcanvas-start sidebar-nav  pt-1" style="background: #048C8C;" tabindex="-1"
+            id="sidebar">
+            <div class="offcanvas-body ">
+                <nav class="navbar-dark">
+                    <div class="pb-1 text-center">
+                        <h3 class="text-light" style="letter-spacing: 10px;"><i>INFINITY </i></h3>
+                        <p class="text-light">Tech</p>
+                        <hr class="dropdown-divider bg-light" />
+                    </div>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-link   text-center">
+                            <!-- <img class="rounded-circle" src=" /images/logo.png" alt="" width="100"> -->
+                            <i class="bi bi-person-circle" style="font-size: 60px;"></i>
+                            <div class="dropdown mt-2 d-flex ">
+                                <p class="m-auto pb-4 btn btn-outline-light dropdown-toggle" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false" style="height: 30px;">
+                                </p>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item nav-link " id="logout" href=""
+                                        style="text-decoration: none;color: red;">
+                                        <i class="bi bi-box-arrow-right "
+                                            style="font-size:15px;margin-left: 40px;">Logout</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <hr class="text-light">
+
+                        <li>
+                            <a href="profile.html" class="nav-link px-3 py-3 active">
+                                <span class="me-2"><i class="bi bi-person"></i></span>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="exam.html" class="nav-link px-3  py-3 ">
+                                <span class="me-2"><i class="bi bi-journal-bookmark-fill"></i></span>
+                                <span>Exam</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="courses.html" class="nav-link px-3 py-3 ">
+                                <span class="me-2"><i class="bi bi-textarea-resize"></i></span>
+                                <span>Courses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="feedback.html" class="nav-link px-3 py-3 ">
+                                <span class="me-2"><i class="bi bi-textarea-resize"></i></span>
+                                <span>Feedback</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="text-light">
+                        </li>
+                        <li style="margin-top:5%;">
+                            <a class="nav-link  active"> <i>Copyright @ INFINITY Tech</i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- offcanvas -->
+
+
+
+        <main class="mt-5 pt-5 main ">
+            <div class="container-fluid">
+                <div class="col-md-8 m-auto">
+                    <div class="card">
+                        <div class="card-header text-center p-4">
+                            Your Profile :
+                        </div>
+                        <div class="card-body p-4">
+                            <ul class="profile">
+                                <li>
+                                    Student Code:
+                                    <p id="scode"></p>
+                                </li>
+                                <li>
+                                    Student Name:
+                                    <p id="sname"></p>
+                                </li>
+                                <li>
+                                    Email Address:
+                                    <p id="semail"></p>
+                                </li>
+                                <li>
+                                    Mobile Number:
+                                    <p id="smobile"></p>
+                                </li>
+                                <li>
+                                    Gender:
+                                    <p id="sgender"></p>
+                                </li>
+                                <li>
+                                    Address:
+                                    <p id="saddress"></p>
+                                </li>
+                                <li>
+                                    Password:
+                                    <p id="spassword"></p>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+
+
+
+</body>
+
+</html>
